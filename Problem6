@@ -1,0 +1,98 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProblemSix
+{
+    public class Homework
+    {
+        public static void Main()
+        {
+            var firstList = Console.ReadLine().Split(' ').Select(int.Parse).ToList();
+            var secondList = Console.ReadLine().Split(' ').Select(int.Parse).ToList();
+
+
+            var smallestNumFirst = FindCountOfDigits(firstList);
+            var smallestNumSecond = FindCountOfDigits(secondList);
+            var smallestNum = Math.Min(smallestNumFirst , smallestNumSecond);
+            var maxLimitOfNumFirst = RemovingNumbers(smallestNum);
+            var maxLimitOfNumSecond = RemovingNumbers(smallestNum);
+            var newFirstList = CreateNewList(firstList,  maxLimitOfNumFirst);
+            var newSecondList = CreateNewList(secondList, maxLimitOfNumSecond);
+            var countOfZippedlList = newFirstList.Count + newSecondList.Count;
+            var zippedList = new List<int>();
+            var countOfIndexFirst = 0;
+            var countOfIndexSecond = 0;
+            for (int i = 0; i < countOfZippedlList; i++)
+            {
+                if (i % 2 == 0 && countOfIndexSecond < newSecondList.Count)
+                {
+                    zippedList.Add(newSecondList[countOfIndexSecond]);
+                    countOfIndexSecond++;
+                }
+                else if (i % 2 == 0 && countOfIndexSecond >= newSecondList.Count)
+                {
+                    zippedList.Add(newFirstList[countOfIndexFirst]);
+                    countOfIndexFirst++;
+                }
+                else if (i % 2 != 0 && countOfIndexFirst < newFirstList.Count)
+                {
+                    zippedList.Add(newFirstList[countOfIndexFirst]);
+                    countOfIndexFirst++;
+                }
+                else if (i % 2 != 0 && countOfIndexFirst >= newFirstList.Count)
+                {
+                    zippedList.Add(newSecondList[countOfIndexSecond]);
+                    countOfIndexSecond++;
+                }
+                
+            }
+
+            //Console.WriteLine(string.Join(" " , newFirstList));
+            //Console.WriteLine(string.Join(" ", newSecondList));
+            Console.WriteLine(string.Join(" ", zippedList));
+        }
+        public static int FindCountOfDigits(List<int> list) {
+
+            var smallestNum = int.MaxValue;
+            var countOfNum = 1;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                var num = list[i];
+                num = num / 10;
+                while (num != 0)
+                {
+                    countOfNum++;
+                    num = num / 10;
+                }
+                smallestNum = Math.Min(countOfNum, smallestNum);
+                countOfNum = 1;
+            }
+            return smallestNum;
+        }
+        public static int RemovingNumbers(int n) {
+            var num = 1;
+            for (int i = 0; i < n; i++)
+            {
+                num = num * 10;
+            }
+            return num;
+        }
+
+        public static List<int> CreateNewList(List<int> list ,  int maxLimitOfNum) {
+            var newList = new List<int>();
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i] < maxLimitOfNum)
+                {
+                    newList.Add(list[i]);
+                }
+               
+            }
+            return newList;
+        }
+    }
+}
