@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication15
+{
+    class Program
+    {
+        static void Main()
+        {
+            var blackList = Console.ReadLine().Split(' ').ToList();
+            var files = new List<string>();
+            var commandOrFile = Console.ReadLine();
+            while (commandOrFile != "end")
+            {
+                files.Add(commandOrFile);
+                commandOrFile = Console.ReadLine();
+            }
+            var output = new List<string>();
+             output = IsItBlackList(blackList , files , output);
+             output.Sort();
+           
+            Console.WriteLine(string.Join("\r\n",output));
+        }
+
+        public static List<string> IsItBlackList(List<string> blackList , List<string> files , List<string> output) {
+            var counter = 0;
+            for (int i = 0; i < files.Count; i++)
+            {
+                for (int j = 0; j < blackList.Count; j++)
+                {
+                    if (files[i].Contains(blackList[j]))
+                    {
+                        counter++;
+                    }
+                    if (files[i].Contains(blackList[j]) == false && j == blackList.Count - 1 && counter == 0)
+                    {
+                        output.Add(files[i]);
+                       
+                    }                 
+                }
+                counter = 0;
+            }
+            return output;
+        }
+    }
+}
