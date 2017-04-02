@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ListsHomeWork
+{
+    public class ProblemFive
+    {
+        public static void Main()
+        {
+            var integersOrigin = Console.ReadLine().Split(' ').Select(int.Parse).ToList();
+            var firstPart = new List<int>();
+            var secondPart = new List<int>();
+            var lengthOfLittleArrays = integersOrigin.Count / 2;
+            for (int i = 0; i < lengthOfLittleArrays; i++)
+            {
+                firstPart.Add(integersOrigin[i]);
+                secondPart.Add(integersOrigin[i + lengthOfLittleArrays]);
+            }
+           var oneIntegers = new List<int>();
+            for (int i = 0; i < secondPart.Count; i++)
+            {
+                var first = secondPart[i] / 10;
+                var second = secondPart[i] % 10;
+                oneIntegers.Add(first);
+                oneIntegers.Add(second);
+            }
+            var final = new List<int>();
+            var finalLength = oneIntegers.Count + firstPart.Count;
+            var positionForNum = 2;
+            var numCounter = 0;
+            var ciferCounter = 0;
+            for (int i = 0; i < finalLength; i++)
+            {
+                
+                if (positionForNum % 3 == 0)
+                {
+                    final.Add(firstPart[numCounter]);
+                    numCounter++;
+                }
+                else
+                {
+                    final.Add(oneIntegers[ciferCounter]);
+                    ciferCounter++;
+                }
+                positionForNum++;
+            }
+            Console.WriteLine(string.Join(" " , final));
+        }
+   
+
+    }
+}
