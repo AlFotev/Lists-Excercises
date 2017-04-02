@@ -1,0 +1,26 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication15
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+           List<string> input = Console.ReadLine().Split(' ').ToList();
+            var even = new List<string>();
+
+            for (int i = 0; i < input.Count; i++)
+            {
+                if (i % 2 != 0)
+                {
+                    even.Add(input[i]);
+                }
+            }
+            Console.WriteLine(string.Join("" , even));
+        }
+    }
+}
